@@ -214,8 +214,8 @@ export function FilterBox({
 }
 
 export default function Slate({ props }: { props: any }) {
-  const heroComponents = Object.entries(props['hero-section']['hero']);
-  const bodySectionComponents = Object.entries(props['body-section']);
+  const heroComponents = Object.entries(props["hero-section"]["hero"]);
+  const bodySectionComponents = Object.entries(props["body-section"]);
   const editor =
     props.isEditor &&
     "hover:border hover:border-red-200 rounded-md cursor-pointer";
@@ -224,12 +224,18 @@ export default function Slate({ props }: { props: any }) {
     <div className="container">
       <div id="hero-section">
         <div
-          className={cn("flex flex-col gap-4 container-wrapper p-3", editor, props.currentContainerId === 'hero' ? 'border-red-200 border': '')}
+          className={cn(
+            "flex flex-col gap-4 container-wrapper p-3",
+            editor,
+            props.isEditor && props.currentContainerId === "hero"
+              ? "border-red-200 border"
+              : ""
+          )}
           id="hero"
         >
           {heroComponents.map((element) => {
             const config = element[1] as Config;
-            console.log(config)
+            console.log(config);
             const key = element[0];
             const activeElement =
               props.currentElementId === config.id

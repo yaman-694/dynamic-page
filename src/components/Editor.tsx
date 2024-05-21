@@ -43,26 +43,9 @@ export default function Editor({
         </div>
       </div>
       <div>
-        {currentElement?.id === "job-card" && (
-          <div className="flex flex-col gap-3">
-            <label className="">
-              {currentElement?.id?.split("-").join(" ") || "Select and element"}
-            </label>
-            <div>You selected job card</div>
-          </div>
-        )}
-        {currentElement?.id === "filter-box" && (
-          <div className="flex flex-col gap-3">
-            <label>
-              {currentElement?.id?.split("-").join(" ") || "Select and element"}
-            </label>
-            <div>You selected filter box</div>
-          </div>
-        )}
         {currentContainerId && (
           <div className="flex flex-col gap-3">
-            
-            <div>You selected {currentContainerId.split('-').join(' ')} container</div>
+            <div>You are in {currentContainerId.split('-').join(' ')} container</div>
           </div>
         )}
       </div>
