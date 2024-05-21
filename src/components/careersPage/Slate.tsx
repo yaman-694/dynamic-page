@@ -49,7 +49,7 @@ export function TypographyH1({
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl element",
         className
       )}
       id={id}
@@ -70,7 +70,7 @@ export function TypographyP({
 }) {
   return (
     <p
-      className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+      className={cn("leading-7 [&:not(:first-child)]:mt-6 element", className)}
       id={id}
     >
       {text ?? "Sub-title"}
@@ -90,7 +90,7 @@ export function TypographyH4({
   return (
     <h4
       className={cn(
-        "scroll-m-20 text-xl font-semibold tracking-tight",
+        "scroll-m-20 text-xl font-semibold tracking-tight element",
         className
       )}
       id={id}
@@ -110,7 +110,7 @@ export function HeroButton({
   id: string;
 }) {
   return (
-    <Button id={id} className={cn("", className)}>
+    <Button id={id} className={cn("element", className)}>
       {text}
     </Button>
   );
@@ -158,7 +158,7 @@ function JobCardContainer({
       id={config.id}
       key={config.sno}
       className={cn(
-        "mt-14 flex flex-col gap-4 group container-wrapper",
+        "mt-14 flex flex-col gap-4 group container-wrapper p-3",
         className
       )}
     >
@@ -198,7 +198,7 @@ export function FilterBox({
   id: string;
 }) {
   return (
-    <Card className={cn("w-full container-wrapper", className)} id={id}>
+    <Card className={cn("w-full container-wrapper p-3", className)} id={id}>
       <CardContent>
         <div className="grid grid-cols-4 gap-3">
           <div className="flex items-center gap-3 col-span-3">
@@ -214,53 +214,59 @@ export function FilterBox({
 }
 
 export default function Slate({ props }: { props: any }) {
-  const heroSectionComponents = Object.entries(props.heroSection);
-  const bodySectionComponents = Object.entries(props.bodySection);
+  const heroComponents = Object.entries(props['hero-section']['hero']);
+  const bodySectionComponents = Object.entries(props['body-section']);
   const editor =
     props.isEditor &&
     "hover:border hover:border-red-200 rounded-md cursor-pointer";
 
   return (
     <div className="container">
-      <div className="hero-section flex flex-col gap-4">
-        {heroSectionComponents.map((element) => {
-          const config = element[1] as Config;
-          const key = element[0];
-          const activeElement =
-            props.currentElement === config.id
-              ? editor + " border-red-200 border"
-              : editor;
-          if (key == "page-title" && !config.hide) {
-            return (
-              <TypographyH1
-                text={config.text}
-                id={config.id}
-                key={config.sno}
-                className={props.isEditor && activeElement}
-              />
-            );
-          }
-          if (key == "page-subtitle" && !config.hide) {
-            return (
-              <TypographyP
-                text={config.text}
-                id={config.id}
-                key={config.sno}
-                className={cn(props.isEditor && activeElement, "w-1/2")}
-              />
-            );
-          }
-          if (key == "page-button" && !config.hide) {
-            return (
-              <HeroButton
-                text={config.text}
-                id={config.id}
-                key={config.sno}
-                className={cn(props.isEditor && activeElement, "self-start")}
-              />
-            );
-          }
-        })}
+      <div id="hero-section">
+        <div
+          className={cn("flex flex-col gap-4 container-wrapper p-3", editor, props.currentContainerId === 'hero' ? 'border-red-200 border': '')}
+          id="hero"
+        >
+          {heroComponents.map((element) => {
+            const config = element[1] as Config;
+            console.log(config)
+            const key = element[0];
+            const activeElement =
+              props.currentElementId === config.id
+                ? editor + " border-red-200 border"
+                : editor;
+            if (key == "page-title" && !config.hide) {
+              return (
+                <TypographyH1
+                  text={config.text}
+                  id={config.id}
+                  key={config.sno}
+                  className={props.isEditor && activeElement}
+                />
+              );
+            }
+            if (key == "page-subtitle" && !config.hide) {
+              return (
+                <TypographyP
+                  text={config.text}
+                  id={config.id}
+                  key={config.sno}
+                  className={cn(props.isEditor && activeElement, "w-1/2")}
+                />
+              );
+            }
+            if (key == "page-button" && !config.hide) {
+              return (
+                <HeroButton
+                  text={config.text}
+                  id={config.id}
+                  key={config.sno}
+                  className={cn(props.isEditor && activeElement, "self-start")}
+                />
+              );
+            }
+          })}
+        </div>
       </div>
       <div className="my-14">
         {bodySectionComponents.map((element) => {
@@ -268,7 +274,7 @@ export default function Slate({ props }: { props: any }) {
           const key = element[0];
           if (key == "filter-box" && !config.hide) {
             const activeElement =
-              props.currentElement === config.id
+              props.currentContainerId === config.id
                 ? editor + " border-red-200 border"
                 : editor;
             return (
@@ -281,7 +287,7 @@ export default function Slate({ props }: { props: any }) {
           }
           if (key == "job-card" && !config.hide) {
             const activeElement =
-              props.currentElement === config.id
+              props.currentContainerId === config.id
                 ? editor + " border-red-200 border"
                 : editor;
             return (

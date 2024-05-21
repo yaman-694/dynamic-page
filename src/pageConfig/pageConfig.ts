@@ -1,36 +1,42 @@
 const elementIdToSectionMap = new Map([
-  ["page-title", "heroSection"],
-  ["page-subtitle", "heroSection"],
-  ["page-button", "heroSection"],
-  ["filter-box", "bodySection"],
-  ["job-card", "bodySection"],
-  ["job-title", "bodySection"],
+  ["page-title", "hero-section"],
+  ["page-subtitle", "hero-section"],
+  ["page-button", "hero-section"],
+  ["filter-box", "body-section"],
+  ["job-card", "body-section"],
+  ["job-title", "body-section"],
 ]);
 
 const propsPageStructure = {
   isEditor: true,
-  currentElement: "",
-  heroSection: {
-    "page-title": {
-      id: "page-title",
-      text: "Find you first job",
-      hide: false,
-      sno: 1,
-    },
-    "page-subtitle": {
-      id: "page-subtitle",
-      text: "Explore the best job opportunities and start your career journey with us.",
-      hide: false,
-      sno: 2,
-    },
-    "page-button": {
-      id: "page-button",
-      text: "Get Job",
-      hide: false,
-      sno: 3,
+  currentElementId: "",
+  currentContainerId: "",
+  "hero-section": {
+    id: "hero-section",
+    hero: {
+      id: 'hero',
+      "page-title": {
+        id: "page-title",
+        text: "Find you first job",
+        hide: false,
+        sno: 1,
+      },
+      "page-subtitle": {
+        id: "page-subtitle",
+        text: "Explore the best job opportunities and start your career journey with us.",
+        hide: false,
+        sno: 2,
+      },
+      "page-button": {
+        id: "page-button",
+        text: "Get Job",
+        hide: false,
+        sno: 3,
+      },
     },
   },
-  bodySection: {
+  "body-section": {
+    id: "body-section",
     "filter-box": {
       id: "filter-box",
       hide: false,
@@ -40,7 +46,7 @@ const propsPageStructure = {
       id: "job-card",
       hide: false,
       title: {
-        id: 'job-title',
+        id: "job-title",
         text: "Job Title",
       },
       content: [

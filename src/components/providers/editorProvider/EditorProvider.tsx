@@ -14,6 +14,8 @@ export default function EditorProvider({ config }: { config: any }) {
     setCurrentElementId,
     pageConfig,
     isEditing,
+    setCurrentContainerId,
+    currentContainerId,
     setIsEditing,
   } = useEditorProvider({ config });
 
@@ -31,13 +33,14 @@ export default function EditorProvider({ config }: { config: any }) {
         </div>
         {isEditing && (
           <Editor
+          currentContainerId={currentContainerId}
             currentElement={currentElement}
             setCurrentElement={setCurrentElement}
           />
         )}
       </div>
       <div className="col-span-4">
-        <EventListner id="parent" setCurrentElementId={setCurrentElementId}>
+        <EventListner id="parent" setCurrentElementId={setCurrentElementId} setCurrentContainerId={setCurrentContainerId}>
           <RenderPage
             render={(pageConfig) => <Slate props={pageConfig} />}
             config={pageConfig}

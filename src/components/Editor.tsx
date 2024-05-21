@@ -6,9 +6,11 @@ import { Card, CardContent, CardTitle } from "./ui/card";
 
 export default function Editor({
   currentElement,
+  currentContainerId,
   setCurrentElement,
 }: {
   currentElement: Config | undefined;
+  currentContainerId: string;
   setCurrentElement: React.Dispatch<React.SetStateAction<Config | undefined>>;
 }) {
   return (
@@ -55,6 +57,12 @@ export default function Editor({
               {currentElement?.id?.split("-").join(" ") || "Select and element"}
             </label>
             <div>You selected filter box</div>
+          </div>
+        )}
+        {currentContainerId && (
+          <div className="flex flex-col gap-3">
+            
+            <div>You selected {currentContainerId.split('-').join(' ')} container</div>
           </div>
         )}
       </div>

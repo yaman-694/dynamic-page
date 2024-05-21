@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export const useEditorProvider = ({ config }: { config: any }) => {
   const [pageConfig, setPageConfig] = useState(config);
   const [currentElementId, setCurrentElementId] = useState("");
+  const [currentContainerId, setCurrentContainerId] = useState("");
   const [currentElement, setCurrentElement] = useState<Config | undefined>(
     undefined
   );
@@ -13,17 +14,20 @@ export const useEditorProvider = ({ config }: { config: any }) => {
   useEffect(() => {
     if (currentElementId) {
       const section = elementIdToSectionMap.get(currentElementId) as string;
-      
-      const element = pageConfig[section][currentElementId];
-      setCurrentElement(element);
+      if (section) {
+        const element =
+          pageConfig[section][currentContainerId][currentElementId];
+        setCurrentElement(element);
+      }
     }
-  }, [currentElementId, pageConfig]);
+  }, [currentElementId, pageConfig, currentContainerId]);
 
   useEffect(() => {
-    if (currentElement) {
+    if (currentElementId || currentContainerId) {
       const newPageConfig = {
         ...pageConfig,
-        currentElement: currentElementId,
+        currentElementId: currentElementId,
+        currentContainerId,
         heroSection: {
           ...pageConfig.heroSection,
           [currentElementId]: currentElement,
@@ -31,7 +35,7 @@ export const useEditorProvider = ({ config }: { config: any }) => {
       };
       setPageConfig(newPageConfig);
     }
-  }, [currentElement]);
+  }, [currentElementId, currentContainerId]);
 
   useEffect(() => {
     setPageConfig({
@@ -39,6 +43,7 @@ export const useEditorProvider = ({ config }: { config: any }) => {
       isEditor: isEditing,
     });
   }, [isEditing]);
+
   return {
     currentElement,
     setCurrentElement,
@@ -46,5 +51,7 @@ export const useEditorProvider = ({ config }: { config: any }) => {
     pageConfig,
     isEditing,
     setIsEditing,
+    setCurrentContainerId,
+    currentContainerId
   };
 };
