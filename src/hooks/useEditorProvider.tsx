@@ -23,19 +23,31 @@ export const useEditorProvider = ({ config }: { config: any }) => {
   }, [currentElementId, pageConfig, currentContainerId]);
 
   useEffect(() => {
-    if (currentElementId || currentContainerId) {
+    if (currentElementId) {
       const newPageConfig = {
         ...pageConfig,
         currentElementId: currentElementId,
-        currentContainerId,
-        heroSection: {
-          ...pageConfig.heroSection,
-          [currentElementId]: currentElement,
+        "hero-section": {
+          ...pageConfig["hero-section"],
+          hero: {
+            ...pageConfig["hero-section"]["hero"],
+            [currentElementId]: currentElement,
+          },
         },
       };
       setPageConfig(newPageConfig);
     }
-  }, [currentElementId, currentContainerId]);
+  }, [currentElement]);
+
+  useEffect(() => {
+    if (currentContainerId) {
+      const newPageConfig = {
+        ...pageConfig,
+        currentContainerId: currentContainerId,
+      };
+      setPageConfig(newPageConfig);
+    }
+  }, [currentContainerId]);
 
   useEffect(() => {
     setPageConfig({
@@ -52,6 +64,6 @@ export const useEditorProvider = ({ config }: { config: any }) => {
     isEditing,
     setIsEditing,
     setCurrentContainerId,
-    currentContainerId
+    currentContainerId,
   };
 };

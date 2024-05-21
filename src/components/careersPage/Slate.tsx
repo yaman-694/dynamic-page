@@ -235,7 +235,6 @@ export default function Slate({ props }: { props: any }) {
         >
           {heroComponents.map((element) => {
             const config = element[1] as Config;
-            console.log(config);
             const key = element[0];
             const activeElement =
               props.currentElementId === config.id

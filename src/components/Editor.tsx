@@ -13,6 +13,7 @@ export default function Editor({
   currentContainerId: string;
   setCurrentElement: React.Dispatch<React.SetStateAction<Config | undefined>>;
 }) {
+  console.log(currentElement, 'currentElemen')
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">

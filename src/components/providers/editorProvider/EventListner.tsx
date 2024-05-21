@@ -17,7 +17,6 @@ export default function EventListner({
       const containerId = (e.target as HTMLElement).closest(
         ".container-wrapper"
       )?.id;
-      debugger
       if (containerId) {
         const elementId = (e.target as HTMLElement).closest(".element")?.id;
         if (elementId) setCurrentElementId(elementId);
